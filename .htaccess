@@ -1,0 +1,27 @@
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+    
+</IfModule>
+
+RewriteEngine On
+RewriteBase /curso/
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# manejar URLs principales
+RewriteRule ^$ home/index.php [L]
+RewriteRule ^shop/?$ shop/index.php [L,QSA]
+RewriteRule ^contact/?$ contact/index.php [L,QSA]
+RewriteRule ^cart/?$ cart/index.php [L,QSA]
+RewriteRule ^user/?$ user/profile.php [L,QSA]
+
+# manejar URLs con parámetros
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
